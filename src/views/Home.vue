@@ -1,18 +1,44 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+    <create-todo @createTodo="onCreateTodo" />
+    <todo-list :items="todos" @todoStateChanged="onTodoStateChange" />
   </div>
 </template>
 
 <script lang="ts">
+import TodoList from "../components/TodoList.vue";
 import Vue from "vue";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
+import CreateTodo from "@/components/CreateTodo.vue";
+
+type TodoItem = {
+  title: string;
+  content: string;
+  completed: boolean;
+};
 
 export default Vue.extend({
+  components: { TodoList, CreateTodo },
   name: "Home",
-  components: {
-    HelloWorld,
+  data: (): {
+    todos: Array<TodoItem>;
+  } => ({
+    todos: [],
+  }),
+  methods: {
+    onTodoStateChange(payload) {
+      const index = this.todos.findIndex((item) => {
+        return item.title == payload.item.title;
+      });
+      this.todos[index].completed = payload.state;
+    },
+    onCreateTodo(payload) {
+      const newTodo = {
+        title: payload.title,
+        content: payload.content,
+        completed: false,
+      };
+      this.todos.push(newTodo);
+    },
   },
 });
 </script>
