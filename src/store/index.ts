@@ -28,7 +28,10 @@ export default new Vuex.Store({
       state.todos.push(payload);
     },
     UPDATE_TODO(state, payload: UpdateTodoMutationPayload) {
-      state.todos[payload.index].completed = payload.todoCheck
+      state.todos[payload.index].completed = payload.todoCheck;
+    },
+    DELETE_TODO(state, payload: number) {
+      state.todos.splice(payload, 1);
     }
   },
   actions: {
@@ -43,7 +46,13 @@ export default new Vuex.Store({
         index,
         todoCheck: payload.todoCheck,
       } as UpdateTodoMutationPayload);
-    }
+    },
+    deleteTodo({ commit, state }, payload: string) {
+      const index = state.todos.findIndex(
+        (element) => element.title === payload
+      );
+      commit("DELETE_TODO", index as number);
+    },
   },
   modules: {},
 });

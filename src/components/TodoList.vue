@@ -7,6 +7,7 @@
       :content="item.content"
       :completed="item.completed"
       @todoStateChanged="onTodoStateChanged($event, item)"
+      @todoDelete="onTodoDelete(item)"
     />
   </div>
 </template>
@@ -30,6 +31,9 @@ export default Vue.extend({
         todoTitle: item.title,
       };
       this.$store.dispatch("changeTodoState", payload);
+    },
+    onTodoDelete(item) {
+      this.$store.dispatch("deleteTodo", item.title);
     },
   },
 });

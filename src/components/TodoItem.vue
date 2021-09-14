@@ -3,6 +3,7 @@
     <h1>{{ title }}</h1>
     <p>{{ content }}</p>
     <input type="checkbox" v-model="isCompleted" @change="onCheckboxChanged" />
+    <button @click="onClick">DELETE</button>
   </div>
 </template>
 
@@ -26,6 +27,9 @@ export default Vue.extend({
   methods: {
     onCheckboxChanged() {
       this.$emit("todoStateChanged", this.isCompleted);
+    },
+    onClick() {
+      this.$emit("todoDelete");
     },
   },
 });
