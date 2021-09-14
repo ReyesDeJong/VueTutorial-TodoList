@@ -13,16 +13,23 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { ChangeTodoStatePayload } from "../store/index";
 import todoItem from "./TodoItem.vue";
 export default Vue.extend({
   components: { todoItem },
   name: "TodoList",
-  props: {
-    items: Array,
+  computed: {
+    items() {
+      return this.$store.state.todos;
+    },
   },
   methods: {
-    onTodoStateChanged(state: boolean, item) {
-      this.$emit("todoStateChanged", { state: state, item: item });
+    onTodoStateChanged(todoCheck: boolean, item) {
+      const payload: ChangeTodoStatePayload = {
+        todoCheck: todoCheck,
+        todoTitle: item.title,
+      };
+      this.$store.dispatch("changeTodoState", payload);
     },
   },
 });

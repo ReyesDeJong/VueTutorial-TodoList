@@ -23,7 +23,7 @@ export default Vue.extend({
         title: this.title,
         content: this.content,
       };
-      this.$emit("createTodo", payload);
+      this.$store.dispatch("createTodo", payload);
     },
   },
 });
