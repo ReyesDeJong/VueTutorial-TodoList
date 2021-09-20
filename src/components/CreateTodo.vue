@@ -1,11 +1,19 @@
 <template>
-  <div>
-    <label for="title">Title</label> <br />
-    <input type="text" id="title" name="title" v-model="title" /> <br />
-    <label for="content">Content</label> <br />
-    <textarea id="content" name="content" v-model="content" /> <br />
-    <button @click="onClick">Add</button>
-  </div>
+  <v-container>
+    <v-row justify="center">
+      <v-col cols="6">
+        <v-text-field label="Title" v-model="title"></v-text-field>
+      </v-col>
+    </v-row>
+    <v-row justify="center">
+      <v-col cols="6">
+        <v-textarea label="Content" v-model="content"></v-textarea>
+        <v-btn color="primary" rounded large outlined @click="onClick"
+          >Add</v-btn
+        >
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -22,6 +30,7 @@ export default Vue.extend({
       const payload = {
         title: this.title,
         content: this.content,
+        completed: false,
       };
       this.$store.dispatch("createTodo", payload);
     },
@@ -29,5 +38,4 @@ export default Vue.extend({
 });
 </script>
 
-<style>
-</style>
+<style></style>

@@ -1,10 +1,27 @@
 <template>
-  <div>
-    <h1>{{ title }}</h1>
-    <p>{{ content }}</p>
-    <input type="checkbox" v-model="isCompleted" @change="onCheckboxChanged" />
-    <button @click="onClick">DELETE</button>
-  </div>
+  <v-container>
+    <v-card :color="cardColor">
+      <v-card-title>{{ title }}</v-card-title>
+      <v-card-text>
+        <v-row align="center">
+          <v-col cols="1">
+            <v-checkbox
+              v-model="isCompleted"
+              @change="onCheckboxChanged"
+            ></v-checkbox>
+          </v-col>
+          <v-col cols="1">
+            <v-btn icon @click="onClick">
+              <v-icon> mdi-delete </v-icon>
+            </v-btn>
+          </v-col>
+          <v-col>
+            {{ content }}
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+  </v-container>
 </template>
 
 <script lang="ts">
@@ -23,6 +40,15 @@ export default Vue.extend({
   },
   mounted() {
     this.isCompleted = this.completed;
+  },
+  computed: {
+    cardColor() {
+      if (this.completed) {
+        return "green lighten-4";
+      } else {
+        return "white";
+      }
+    },
   },
   methods: {
     onCheckboxChanged() {

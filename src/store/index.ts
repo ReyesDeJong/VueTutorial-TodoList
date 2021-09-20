@@ -12,12 +12,12 @@ type TodoItem = {
 export type ChangeTodoStatePayload = {
   todoCheck: boolean;
   todoTitle: string;
-}
+};
 
 type UpdateTodoMutationPayload = {
   index: number;
   todoCheck: boolean;
-}
+};
 
 export default new Vuex.Store({
   state: {
@@ -32,7 +32,7 @@ export default new Vuex.Store({
     },
     DELETE_TODO(state, payload: number) {
       state.todos.splice(payload, 1);
-    }
+    },
   },
   actions: {
     createTodo({ commit }, payload: TodoItem) {
